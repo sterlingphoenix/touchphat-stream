@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import os
+import signal
+import subprocess
+#import shlex
+import random
+from sys import exit, version_info
+
+import touchphat
+
+stcmd="/home/pi/stream"
+youtube="https://www.youtube.com/watch?v="
+streams = {}
+with open("streams/streams.dat") as s:
+    for line in s:
+        (key, val) = line.split(':')
+        streams[key]=val
+
+skeys=list(streams.keys());
+
+numstreams=len(skeys)
+
+print (numstreams, "streams detected.")
+
+print ()
+
+s = random.randint(1,numstreams)
+s=s-1
+print ("Starting at", s, "which is", skeys[s], ":", streams[skeys[s]])
+
+cmd=youtube+skeys[s]+"&"
+subprocess.Popen([stcmd, cmd])
+print()
+
+@touchphat.on_release("Enter")
+def back_one():
+    global s
+    s=s+1
+    if s == numstreams:
+        s = 0
+
+    #print ("Now at", s, "which is", skeys[s], ":", streams[skeys[s]])
+    print (streams[skeys[s]])
+    cmd=youtube+skeys[s]
+    subprocess.Popen([stcmd, cmd])
+    print()
+
+@touchphat.on_release("Back")
+def forward_one():
+    global s
+    s=s-1
+    if s == -1:
+        s = (numstreams-1)
+
+    #print ("Now at", s, "which is", skeys[s], ":", streams[skeys[s]])
+    print (streams[skeys[s]])
+    cmd=youtube+skeys[s]
+    subprocess.Popen([stcmd, cmd])
+    print()
+
+signal.pause()
