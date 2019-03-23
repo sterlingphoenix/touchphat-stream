@@ -3,16 +3,20 @@
 import os
 import signal
 import subprocess
-#import shlex
 import random
 from sys import exit, version_info
-
+import syslog
+import time
 import touchphat
+
+
+syslog.syslog(syslog.LOG_INFO, "Hi there! Sleeping 10 seconds because reasons.")
+time.sleep(10)
 
 stcmd="/home/pi/stream"
 youtube="https://www.youtube.com/watch?v="
 streams = {}
-with open("streams/streams.dat") as s:
+with open("/home/pi/streams/streams.dat") as s:
     for line in s:
         (key, val) = line.split(':')
         streams[key]=val
@@ -21,17 +25,16 @@ skeys=list(streams.keys());
 
 numstreams=len(skeys)
 
-print (numstreams, "streams detected.")
-
-print ()
+msg=str(numstreams)+" streams detected."
+syslog.syslog(syslog.LOG_INFO, msg)
 
 s = random.randint(1,numstreams)
 s=s-1
-print ("Starting at", s, "which is", skeys[s], ":", streams[skeys[s]])
+msg="Starting at stream "+str(s)+": "+streams[skeys[s]]
+syslog.syslog(syslog.LOG_INFO, msg)
 
 cmd=youtube+skeys[s]+"&"
 subprocess.Popen([stcmd, cmd])
-print()
 
 @touchphat.on_release("Enter")
 def back_one():
@@ -40,11 +43,10 @@ def back_one():
     if s == numstreams:
         s = 0
 
-    #print ("Now at", s, "which is", skeys[s], ":", streams[skeys[s]])
-    print (streams[skeys[s]])
+    msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
+    syslog.syslog(syslog.LOG_INFO, msg)
     cmd=youtube+skeys[s]
     subprocess.Popen([stcmd, cmd])
-    print()
 
 @touchphat.on_release("Back")
 def forward_one():
@@ -53,10 +55,11 @@ def forward_one():
     if s == -1:
         s = (numstreams-1)
 
-    #print ("Now at", s, "which is", skeys[s], ":", streams[skeys[s]])
-    print (streams[skeys[s]])
+    msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
+    syslog.syslog(syslog.LOG_INFO, msg)
+
     cmd=youtube+skeys[s]
     subprocess.Popen([stcmd, cmd])
-    print()
+
 
 signal.pause()
