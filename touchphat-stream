@@ -7,11 +7,22 @@ import random
 from sys import exit, version_info
 import syslog
 import time
+import socket
 import touchphat
 
 
-syslog.syslog(syslog.LOG_INFO, "Hi there! Sleeping 10 seconds because reasons.")
-time.sleep(10)
+syslog.syslog(syslog.LOG_NOTICE, "Hi there! Waiting for network to be available.")
+
+while True:
+    nointernet=10
+    try:
+        socket.gethostbyname("youtube.com")
+    except:
+        time.sleep(1)
+        nointernet=1
+
+    if (nointernet == 10):
+        break
 
 stcmd="/home/pi/stream"
 youtube="https://www.youtube.com/watch?v="
@@ -26,12 +37,12 @@ skeys=list(streams.keys());
 numstreams=len(skeys)
 
 msg=str(numstreams)+" streams detected."
-syslog.syslog(syslog.LOG_INFO, msg)
+syslog.syslog(syslog.LOG_NOTICE, msg)
 
 s = random.randint(1,numstreams)
 s=s-1
 msg="Starting at stream "+str(s)+": "+streams[skeys[s]]
-syslog.syslog(syslog.LOG_INFO, msg)
+syslog.syslog(syslog.LOG_NOTICE, msg)
 
 cmd=youtube+skeys[s]+"&"
 subprocess.Popen([stcmd, cmd])
@@ -44,7 +55,7 @@ def back_one():
         s = 0
 
     msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
-    syslog.syslog(syslog.LOG_INFO, msg)
+    syslog.syslog(syslog.LOG_NOTICE, msg)
     cmd=youtube+skeys[s]
     subprocess.Popen([stcmd, cmd])
 
@@ -56,10 +67,9 @@ def forward_one():
         s = (numstreams-1)
 
     msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
-    syslog.syslog(syslog.LOG_INFO, msg)
+    syslog.syslog(syslog.LOG_NOTICE, msg)
 
     cmd=youtube+skeys[s]
     subprocess.Popen([stcmd, cmd])
-
 
 signal.pause()
