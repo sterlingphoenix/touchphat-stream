@@ -24,10 +24,10 @@ while True:
     if (nointernet == 10):
         break
 
-stcmd="/home/pi/stream"
+stcmd="/home/pi/stream/streamer_helper_script"
 youtube="https://www.youtube.com/watch?v="
 streams = {}
-with open("/home/pi/streams/streams.dat") as s:
+with open("/home/pi/stream/streams.dat") as s:
     for line in s:
         (key, val) = line.split(':')
         streams[key]=val
