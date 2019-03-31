@@ -21,3 +21,11 @@ You _will_ have to solder the GPIO header onto this guy. You'll also need to ins
 ### omxplayer
 
 Can be installed via ```apt-get install omxplayer```
+
+### Configure syslog
+
+Add the following line to ```/etc/rsyslog.conf```:
+
+```*.notice                        -/dev/console```
+
+Since the script runs at reboot, this is the only consistent way to provide output. 
