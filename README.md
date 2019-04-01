@@ -26,6 +26,6 @@ Can be installed via ```apt-get install omxplayer```
 
 Add the following line to ```/etc/rsyslog.conf```:
 
-```*.notice                        -/dev/console```
+```*.notice                        /dev/console```
 
 Since the script runs at reboot, this is the only consistent way to provide output. 
