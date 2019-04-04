@@ -1,0 +1,8 @@
+#!/bin/bash
+touch /tmp/youdienow
+killall -9 steamer_helper_script
+killall -9 video_helper_script
+killall -9 streamlink
+killall -9 omxplayer.bin
+killall -9 omxplayer
+rm /tmp/youdienow

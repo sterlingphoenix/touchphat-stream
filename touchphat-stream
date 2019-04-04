@@ -11,16 +11,18 @@ import time
 import socket
 import touchphat
 
+home="/home/pi/touchphat-stream/"
+stream_cmd=home+"streamer_helper_script"
+video_cmd=home+"video_helper_script"
+cleanup_cmd=home+"cleanup_helper_script"
+stream_file=home+"streams.dat"
+
 def kill_everything():
     syslog.syslog(syslog.LOG_NOTICE, "Killing old processes.")
-    subprocess.Popen(["killall", "-9", "steamer_helper_script"])   
-    subprocess.Popen(["killall", "-9", "video_helper_script"])   
-    subprocess.Popen(["killall", "-9", "streamlink"])   
-    subprocess.Popen(["killall", "-9", "omxplayer"])   
-    subprocess.Popen(["killall", "-9", "omxplayer.bin"])   
+    subprocess.Popen([cleanup_cmd])
 
-
-syslog.syslog(syslog.LOG_NOTICE, "Hi there! Waiting for network to be available.")
+syslog.syslog(syslog.LOG_NOTICE, "Hi there!")
+syslog.syslog(syslog.LOG_NOTICE, "Waiting for network to be available.")
 
 while True:
     nointernet=10
@@ -33,10 +35,7 @@ while True:
     if (nointernet == 10):
         break
 
-#stcmd="/home/pi/stream/streamer_helper_script"
-stream_cmd="/home/pi/stream/streamer_helper_script"
-video_cmd="/home/pi/stream/video_helper_script"
-with open("/home/pi/stream/streams.dat") as s:
+with open(stream_file) as s:
     streams=s.readlines()
 
 shuffle(streams)
@@ -58,14 +57,17 @@ elif (stype == "v"):
 
 @touchphat.on_release("Enter")
 def back_one():
+    kill_everything()
+
     global s
     s=s+1
     if s == numstreams:
         s = 0
     (stype,url,desc) = streams[s].split(',')
+
     msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
-    kill_everything()
+
     if (stype == "s"):
         subprocess.Popen([stream_cmd, url])
     elif (stype == "v"):
@@ -74,6 +76,8 @@ def back_one():
 
 @touchphat.on_release("Back")
 def forward_one():
+    kill_everything()
+
     global s
     s=s-1
     if s == -1:
@@ -83,7 +87,6 @@ def forward_one():
     msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
 
-    kill_everything()
     if (stype == "s"):
         subprocess.Popen([stream_cmd, url])
     elif (stype == "v"):
