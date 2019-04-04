@@ -25,27 +25,23 @@ while True:
         break
 
 stcmd="/home/pi/stream/streamer_helper_script"
-youtube="https://www.youtube.com/watch?v="
-streams = {}
+#youtube="https://www.youtube.com/watch?v="
+#streams = {}
 with open("/home/pi/stream/streams.dat") as s:
-    for line in s:
-        (key, val) = line.split(':')
-        streams[key]=val
+    streams=s.readlines()
 
-skeys=list(streams.keys());
-
-numstreams=len(skeys)
+numstreams=len(streams)
 
 msg=str(numstreams)+" streams detected."
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
 s = random.randint(1,numstreams)
 s=s-1
-msg="Starting at stream "+str(s)+": "+streams[skeys[s]]
+(stype,url,desc) = streams[s].split(',')
+msg="Starting at stream "+str(s)+": "+desc
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
-cmd=youtube+skeys[s]+"&"
-subprocess.Popen([stcmd, cmd])
+subprocess.Popen([stcmd, url])
 
 @touchphat.on_release("Enter")
 def back_one():
@@ -53,11 +49,10 @@ def back_one():
     s=s+1
     if s == numstreams:
         s = 0
-
-    msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
+    (stype,url,desc) = streams[s].split(',')
+    msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
-    cmd=youtube+skeys[s]
-    subprocess.Popen([stcmd, cmd])
+    subprocess.Popen([stcmd, url])
 
 @touchphat.on_release("Back")
 def forward_one():
@@ -66,10 +61,10 @@ def forward_one():
     if s == -1:
         s = (numstreams-1)
 
-    msg="Switching to stream "+str(s)+": "+streams[skeys[s]]
+    (stype,url,desc) = streams[s].split(',')
+    msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
 
-    cmd=youtube+skeys[s]
-    subprocess.Popen([stcmd, cmd])
+    subprocess.Popen([stcmd, url])
 
 signal.pause()
