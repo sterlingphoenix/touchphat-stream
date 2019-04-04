@@ -4,11 +4,20 @@ import os
 import signal
 import subprocess
 import random
+from random import shuffle
 from sys import exit, version_info
 import syslog
 import time
 import socket
 import touchphat
+
+def kill_everything():
+    syslog.syslog(syslog.LOG_NOTICE, "Killing old processes.")
+    subprocess.Popen(["killall", "-9", "steamer_helper_script"])   
+    subprocess.Popen(["killall", "-9", "video_helper_script"])   
+    subprocess.Popen(["killall", "-9", "streamlink"])   
+    subprocess.Popen(["killall", "-9", "omxplayer"])   
+    subprocess.Popen(["killall", "-9", "omxplayer.bin"])   
 
 
 syslog.syslog(syslog.LOG_NOTICE, "Hi there! Waiting for network to be available.")
@@ -24,12 +33,13 @@ while True:
     if (nointernet == 10):
         break
 
-stcmd="/home/pi/stream/streamer_helper_script"
-#youtube="https://www.youtube.com/watch?v="
-#streams = {}
+#stcmd="/home/pi/stream/streamer_helper_script"
+stream_cmd="/home/pi/stream/streamer_helper_script"
+video_cmd="/home/pi/stream/video_helper_script"
 with open("/home/pi/stream/streams.dat") as s:
     streams=s.readlines()
 
+shuffle(streams)
 numstreams=len(streams)
 
 msg=str(numstreams)+" streams detected."
@@ -41,7 +51,10 @@ s=s-1
 msg="Starting at stream "+str(s)+": "+desc
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
-subprocess.Popen([stcmd, url])
+if (stype == "s"):
+    subprocess.Popen([stream_cmd, url])
+elif (stype == "v"):
+    subprocess.Popen([video_cmd, url])
 
 @touchphat.on_release("Enter")
 def back_one():
@@ -52,7 +65,12 @@ def back_one():
     (stype,url,desc) = streams[s].split(',')
     msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
-    subprocess.Popen([stcmd, url])
+    kill_everything()
+    if (stype == "s"):
+        subprocess.Popen([stream_cmd, url])
+    elif (stype == "v"):
+            subprocess.Popen([video_cmd, url])
+
 
 @touchphat.on_release("Back")
 def forward_one():
@@ -65,6 +83,11 @@ def forward_one():
     msg="Switching to stream "+str(s)+": "+desc
     syslog.syslog(syslog.LOG_NOTICE, msg)
 
-    subprocess.Popen([stcmd, url])
+    kill_everything()
+    if (stype == "s"):
+        subprocess.Popen([stream_cmd, url])
+    elif (stype == "v"):
+            subprocess.Popen([video_cmd, url])
+
 
 signal.pause()
