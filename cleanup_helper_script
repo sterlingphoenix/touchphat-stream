@@ -1,7 +1,19 @@
 #!/bin/bash
+./syslogger Killing old processes...
 touch /tmp/youdienow
-killall -9 steamer_helper_script
-killall -9 video_helper_script
+
+PID=`ps auxw|grep r_helper_|grep -v grep|awk '{print $2}'|head -1`
+if [ "${PID}" != "" ]
+then
+	kill -9 ${PID}
+fi
+
+#PID=`ps auxw|grep o_helper_|grep -v grep|awk '{print $2}'|head -1`
+#if [ "${PID}" != "" ]
+#then
+#        kill -9 ${PID}
+#fi
+
 killall -9 streamlink
 killall -9 omxplayer.bin
 killall -9 omxplayer

@@ -1,5 +1,19 @@
 #!/bin/bash
 #streamlink -p omxplayer --fifo "https://www.youtube.com/watch?v=JEPRVy1jat4" best
-killall -9 omxplayer
-killall -9 streamlink
-streamlink -p omxplayer --fifo $1 best
+
+if [[ "$1" =~ (mp4$|mkv$|avi$) ]]
+then
+	omxplayer --loop -b $1
+	exit
+else
+
+	while :
+	do
+    		streamlink -p omxplayer --fifo $1 best
+    		sleep 10
+    		if [ -f "/tmp/youdienow" ];
+    		then
+	    		exit
+    		fi
+	done
+fi

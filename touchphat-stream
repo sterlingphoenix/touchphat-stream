@@ -18,8 +18,16 @@ cleanup_cmd=home+"cleanup_helper_script"
 stream_file=home+"streams.dat"
 
 def kill_everything():
-    syslog.syslog(syslog.LOG_NOTICE, "Killing old processes.")
+    #syslog.syslog(syslog.LOG_NOTICE, "Killing old processes.")
     subprocess.Popen([cleanup_cmd])
+
+def startstream(stream):
+    global s
+    (url,desc) = stream.split(',')
+    msg="Playing stream #"+str(s+1)+": "+desc
+    syslog.syslog(syslog.LOG_NOTICE, msg)
+
+    subprocess.Popen([stream_cmd, url])
 
 syslog.syslog(syslog.LOG_NOTICE, "Hi there!")
 syslog.syslog(syslog.LOG_NOTICE, "Waiting for network to be available.")
@@ -46,14 +54,7 @@ syslog.syslog(syslog.LOG_NOTICE, msg)
 
 s = random.randint(1,numstreams)
 s=s-1
-(stype,url,desc) = streams[s].split(',')
-msg="Starting at stream "+str(s)+": "+desc
-syslog.syslog(syslog.LOG_NOTICE, msg)
-
-if (stype == "s"):
-    subprocess.Popen([stream_cmd, url])
-elif (stype == "v"):
-    subprocess.Popen([video_cmd, url])
+startstream(streams[s])
 
 @touchphat.on_release("Enter")
 def back_one():
@@ -63,16 +64,8 @@ def back_one():
     s=s+1
     if s == numstreams:
         s = 0
-    (stype,url,desc) = streams[s].split(',')
 
-    msg="Switching to stream "+str(s)+": "+desc
-    syslog.syslog(syslog.LOG_NOTICE, msg)
-
-    if (stype == "s"):
-        subprocess.Popen([stream_cmd, url])
-    elif (stype == "v"):
-            subprocess.Popen([video_cmd, url])
-
+    startstream(streams[s])
 
 @touchphat.on_release("Back")
 def forward_one():
@@ -83,14 +76,6 @@ def forward_one():
     if s == -1:
         s = (numstreams-1)
 
-    (stype,url,desc) = streams[s].split(',')
-    msg="Switching to stream "+str(s)+": "+desc
-    syslog.syslog(syslog.LOG_NOTICE, msg)
-
-    if (stype == "s"):
-        subprocess.Popen([stream_cmd, url])
-    elif (stype == "v"):
-            subprocess.Popen([video_cmd, url])
-
+    startstream(streams[s])
 
 signal.pause()

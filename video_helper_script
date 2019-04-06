@@ -1,2 +1,0 @@
-#!/bin/bash
-omxplayer --loop -b $1
