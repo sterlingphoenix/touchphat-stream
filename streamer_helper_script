@@ -3,6 +3,7 @@
 
 if [[ "$1" =~ (mp4$|mkv$|avi$) ]]
 then
+	sleep 5
 	omxplayer --loop -b $1
 	exit
 else

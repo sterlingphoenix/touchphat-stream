@@ -16,12 +16,17 @@ stream_cmd=home+"streamer_helper_script"
 video_cmd=home+"video_helper_script"
 cleanup_cmd=home+"cleanup_helper_script"
 stream_file=home+"streams.dat"
+key_a_file=home+"key_a.dat"
+key_b_file=home+"key_b.dat"
+key_c_file=home+"key_c.dat"
+key_d_file=home+"key_d.dat"
 
 def kill_everything():
     #syslog.syslog(syslog.LOG_NOTICE, "Killing old processes.")
     subprocess.Popen([cleanup_cmd])
 
 def startstream(stream):
+    #time.sleep(5)
     global s
     (url,desc) = stream.split(',')
     msg="Playing stream #"+str(s+1)+": "+desc
@@ -29,8 +34,10 @@ def startstream(stream):
 
     subprocess.Popen([stream_cmd, url])
 
+
 syslog.syslog(syslog.LOG_NOTICE, "Hi there!")
 syslog.syslog(syslog.LOG_NOTICE, "Waiting for network to be available.")
+
 
 while True:
     nointernet=10
@@ -45,6 +52,19 @@ while True:
 
 with open(stream_file) as s:
     streams=s.readlines()
+
+with open(key_a_file) as a:
+    stream_a=a.readline()
+
+with open(key_b_file) as b:
+    stream_b=b.readline()
+
+with open(key_c_file) as c:
+    stream_c=c.readline()
+
+with open(key_d_file) as d:
+    stream_d=d.readline()
+
 
 shuffle(streams)
 numstreams=len(streams)
@@ -77,5 +97,30 @@ def forward_one():
         s = (numstreams-1)
 
     startstream(streams[s])
+
+@touchphat.on_release("A")
+def key_a():
+    kill_everything()
+
+    startstream(stream_a)
+
+@touchphat.on_release("B")
+def key_b():
+    kill_everything()
+
+    startstream(stream_b)
+
+@touchphat.on_release("C")
+def key_c():
+    kill_everything()
+
+    startstream(stream_c)
+
+@touchphat.on_release("D")
+def key_d():
+    kill_everything()
+
+    startstream(stream_d)
+
 
 signal.pause()
