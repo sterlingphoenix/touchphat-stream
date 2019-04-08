@@ -114,7 +114,7 @@ def key_a():
     global is_key
     kill_everything()
 
-    is_key="hotey A"
+    is_key="hotkey A"
     startstream(stream_a)
 
 @touchphat.on_release("B")
