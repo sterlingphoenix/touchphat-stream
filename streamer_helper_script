@@ -4,13 +4,13 @@
 if [[ "$1" =~ (mp4$|mkv$|avi$) ]]
 then
 	sleep 5
-	omxplayer --loop -b $1
+	/usr/bin/omxplayer --loop -b $1
 	exit
 else
 
 	while :
 	do
-    		streamlink -p omxplayer --fifo $1 best
+    		/usr/local/bin/streamlink -p omxplayer --fifo $1 best
     		sleep 10
     		if [ -f "/tmp/youdienow" ];
     		then
