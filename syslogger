@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+
+import syslog
+import sys
+sys.argv[0]="Cleaner"
+input=sys.argv
+input.pop(0)
+output=' '.join(input)
+
+syslog.syslog(syslog.LOG_NOTICE, output)
