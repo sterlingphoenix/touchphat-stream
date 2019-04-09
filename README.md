@@ -38,8 +38,8 @@ Duh, right? I'm only mentioning this because your diskspace obviously limits how
 ### The Latest [Raspbarian Lite](https://www.raspberrypi.org/downloads/raspbian/).
 
 * Install normally, and let it do the initial setup.
-* Run ``sudo raspi-config`` and *change the default passord*, set up networking, enable ``ssh`` (if you want to), localisation (if you need it), etc. Might as well do an ``Update``, too. 
-* While in``raspi-config``, select ``Advanced Options`` -> ``Memory Split`` and set the GPU RAM to 256 MB. 
+* Run `sudo raspi-config` and *change the default passord*, set up networking, enable `ssh` (if you want to), localisation (if you need it), etc. Might as well do an `Update`, too. 
+* While in`raspi-config`, select `Advanced Options` -> `Memory Split` and set the GPU RAM to 256 MB. 
 
 ### The Aforementioned Pimoroni Software Library
 
@@ -55,45 +55,45 @@ Installation instructions are, once again, available directly from the project p
 
 This is the actual video player. It is used by streamlink, and to directly play locally stored videos.
 
-It can be installed via ```apt-get install omxplayer```
+It can be installed via `apt-get install omxplayer`
 
-## Configure ``syslog``
+## Configure `syslog`
 
-If you want to see any kind of output on the console, add the following line to ```/etc/rsyslog.conf```:
+If you want to see any kind of output on the console, add the following line to `/etc/rsyslog.conf`:
 
-```*.notice                        /dev/console```
+`*.notice                        /dev/console`
 
 Since the script runs at reboot, this is the only consistent way to provide output. 
 
 ## Install This Stuff.
 
-Installation is assumed to be in ``/home/pi/touchphat-stream``. 
+Installation is assumed to be in `/home/pi/touchphat-stream`. 
 
-You'll need to install ```git``` on your PI (```apt-get install git```). 
+You'll need to install `git` on your PI (`apt-get install git`). 
 
-Then, from ``/home/pi``, run
+Then, from `/home/pi`, run
 
-```git clone https://github.com/sterlingphoenix/touchphat-stream.git```
+`git clone https://github.com/sterlingphoenix/touchphat-stream.git`
 
 ### Included Files
 
-* ```touchphat-stream``` - the main script. 
-* ```streamer_helper_script``` - helper shell script that starts the stream/video. Since live streams tend to, well, crash, it makes sure to keep things going.
-* ```cleanup_helper_script``` - helper shell script that kills _everything_ with some degree of vehemence. Makes sure new stream doesn't merge with new stream. Ever see pandas running around a beach in Hawaii? That was a fun bug. 
-* ```syslogger``` - script that takes whatever you throw at it and barfs it out to syslog. 
+* `touchphat-stream` - the main script. 
+* `streamer_helper_script` - helper shell script that starts the stream/video. Since live streams tend to, well, crash, it makes sure to keep things going.
+* `cleanup_helper_script` - helper shell script that kills _everything_ with some degree of vehemence. Makes sure new stream doesn't merge with new stream. Ever see pandas running around a beach in Hawaii? That was a fun bug. 
+* `syslogger` - script that takes whatever you throw at it and barfs it out to syslog. 
 
 ### Configuration Files
 
-* ``streams.dat`` - main file containing streams to cycle through.  
-* ``key_a.dat`` through ``key_d.dat`` - these contain a stream for each corresponding hotkey. Separate files (for now) so they can either be included or not in the main list. 
+* `streams.dat` - main file containing streams to cycle through.  
+* `key_a.dat` through `key_d.dat` - these contain a stream for each corresponding hotkey. Separate files (for now) so they can either be included or not in the main list. 
 
 Configuration files are basically a comma-separated list with the format
 
-``Stream URL/Path to Local File,Description``
+`Stream URL/Path to Local File,Description`
 
 Super simple, right? Also has no provision for comments or, well, empty lines. Or errors... ugh. 
 
-A stream URL is the full URL, including the https:// bit. A local video is the full path to the videos. You can store them wherever you want, but I recommend a ``videos/`` directory within the main installation. 
+A stream URL is the full URL, including the https:// bit. A local video is the full path to the videos. You can store them wherever you want, but I recommend a `videos/` directory within the main installation. 
 
 ## Test It! 
 
