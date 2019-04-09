@@ -1,6 +1,10 @@
 # touchphat-stream
 
-This script (or collection of scripts) turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file, and start playing a random one. It will then switch between streams depending on input from a Pimoroni Touch pHAT. 
+This script (or collection of scripts) turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file, and start playing a random one. It will then switch between streams depending on input from a Pimoroni Touch pHAT. The Touch pHAT has six keys -- "Back" and "Enter" are used as Forward/Backward in the stream list. Keys A through D are used as hotkeys for specific streams. 
+
+Also note that "stream" refers to either a stream or a local video, because I'm lazy. 
+
+On startup, the script will load a provided stream file, randomise the list and start playing at a random spot. 
 
 ## Disclaimer
 
@@ -67,11 +71,31 @@ You'll need to install ```git``` on your PI (```apt-get install git```).
 
 Then, from ``/home/pi``, run
 
-```git clone 
+```git clone https://github.com/sterlingphoenix/touchphat-stream.git```
 
-Download the zip or ``git clone`` the thing (note that you'll have to ``apt-get install git`` for that one). 
+### Included Files
 
-Intallation is assumed to be in ``/home/pi/touchphat-stream``. Because that's friggin hardcoded. 
+* ```touchphat-stream``` - the main script. 
+* ```streamer_helper_script``` - helper shell script that starts the stream/video. Since live streams tend to, well, crash, it makes sure to keep things going.
+* ```cleanup_helper_script``` - helper shell script that kills _everything_ with some degree of vehemence. Makes sure new stream doesn't merge with new stream. Ever see pandas running around a beach in Hawaii? That was a fun bug. 
+* ```syslogger``` - script that takes whatever you throw at it and barfs it out to syslog. 
+
+### Configuration Files
+
+* ``streams.dat`` - main file containing streams to cycle through.  
+* ``key_a.dat`` through ``key_d.dat`` - these contain a stream for each corresponding hotkey. Separate files (for now) so they can either be included or not in the main list. 
+
+Configuration files are basically a comma-separated list with the format
+
+``Stream URL/Path to Local File,Description``
+
+Super simple, right? Also has no provision for comments or, well, empty lines. Or errors... ugh. 
+
+A stream URL is the full URL, including the https:// bit. A local video is the full path to the videos. You can store them wherever you want, but I recommend a ``videos/`` directory within the main installation. 
+
+## Test It! 
+
+You can start the thing locally or via ``ssh``.
 
 
 ## But I want to use a PI Zero!
@@ -91,3 +115,9 @@ Yeah, that was my original plan, too. I had a PI Zero that was happily looping a
 Again, it _will_ work. But it's more work and it is slower. 
 
 However, it _does_ look kinda cooler to have a _tiny_ thing doing all this. 
+
+`test 1` One!
+
+``test 2`` Two!
+
+```test 3``` Three!
