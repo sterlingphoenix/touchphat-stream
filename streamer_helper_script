@@ -1,17 +1,27 @@
 #!/bin/bash
+# This script starts playing a stream or a local video. 
+# Anything starting with "http" is assumed to be a stream. 
+# Anything else is a local file. 
+#
+# Since streams can crash, a stream will run in a loop and restart 
+# when it crashes, unless the cleanup script drops a file telling
+# it not to. 
+#
+# There's a delay before starting a local video since they can start 
+# so fast that the cleanup script will lag and kill them! 
 if [[ "$1" =~ ^http ]]
 then
-	while :
-	do
-    		/usr/local/bin/streamlink -p "omxplayer -b" --fifo $1 best
-    		sleep 10
-    		if [ -f "/tmp/youdienow" ];
-    		then
-	    		exit
-    		fi
-	done
+    while :
+    do
+        /usr/local/bin/streamlink -p "omxplayer -b" --fifo $1 best
+        sleep 10
+        if [ -f "/tmp/youdienow" ];
+        then
+            exit
+        fi
+    done
 else
-        sleep 5
-        /usr/bin/omxplayer --loop -b $1
-        exit
+    sleep 5
+    /usr/bin/omxplayer --loop -b $1
+    exit
 fi

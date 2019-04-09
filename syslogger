@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# This takes everything from the commandline and throws it to syslog.
 
 import syslog
 import sys

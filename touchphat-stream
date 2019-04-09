@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
+#
+# This script reads a list of streams/local files and streams/plays them. 
+# It switches between streams using a Pimoroni Touch pHAT. 
 
+# Honestly this miiight need to be cleaned up... not sure I'm using all 
+# of these anu more.
 import os
 import signal
 import subprocess
@@ -11,21 +16,24 @@ import time
 import socket
 import touchphat
 
-home="/home/pi/touchphat-stream/"
-stream_cmd=home+"streamer_helper_script"
-video_cmd=home+"video_helper_script"
-cleanup_cmd=home+"cleanup_helper_script"
-stream_file=home+"streams.dat"
-key_a_file=home+"key_a.dat"
+home="/home/pi/touchphat-stream/"         # Yeah, home is hardcoded. Gross.
+stream_cmd=home+"streamer_helper_script"  # Helper script that does videos.
+cleanup_cmd=home+"cleanup_helper_script"  # Kill all the things.
+stream_file=home+"streams.dat"            # Config file with all the strreams.
+key_a_file=home+"key_a.dat"               # Hotkey streams
 key_b_file=home+"key_b.dat"
 key_c_file=home+"key_c.dat"
 key_d_file=home+"key_d.dat"
 is_key=""
 
+# Runs a script that cleans up when switching streams.
 def kill_everything():
     subprocess.Popen([cleanup_cmd])
 
+# Start a stream. Basically calls a helper script.
 def startstream(stream):
+    # "s" is the stream number. 
+    # "is_key" is set when a hotkey is pressed rather than back/forward.
     global s
     global is_key
 
@@ -43,11 +51,14 @@ def startstream(stream):
 
     subprocess.Popen([stream_cmd, url])
 
+# 5 second sleep... because for some reason checking for network messes up
+# sometimes. 
 time.sleep(5)
 syslog.syslog(syslog.LOG_NOTICE, "Hi there!")
 syslog.syslog(syslog.LOG_NOTICE, "Waiting for network to be available.")
 
-
+# Check for network connectivity. We do this by trying 
+# to resolve youtube.com. this will loop until it succeeds. 
 while True:
     nointernet=10
     try:
@@ -61,9 +72,11 @@ while True:
 
 syslog.syslog(syslog.LOG_NOTICE, "Network is up!")
 
+# Read main streams file.
 with open(stream_file) as s:
     streams=s.readlines()
 
+# Read hotkey files and yes this is stupid. 
 with open(key_a_file) as a:
     stream_a=a.readline()
 
@@ -76,17 +89,19 @@ with open(key_c_file) as c:
 with open(key_d_file) as d:
     stream_d=d.readline()
 
-
+# Hey, let's shuffle the order of the streams. 
 shuffle(streams)
 numstreams=len(streams)
 
 msg=str(numstreams)+" streams detected."
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
+# Also let's start at a random place on the list. 
 s = random.randint(1,numstreams)
 s=s-1
 startstream(streams[s])
 
+# The Touch pHAT's "Enter" button is our "forward".
 @touchphat.on_release("Enter")
 def back_one():
     kill_everything()
@@ -98,6 +113,7 @@ def back_one():
 
     startstream(streams[s])
 
+# The Touch pHAT's "Back" button is our, uh. Back. 
 @touchphat.on_release("Back")
 def forward_one():
     kill_everything()
@@ -109,6 +125,7 @@ def forward_one():
 
     startstream(streams[s])
 
+# These process the hotkeys, and again, this can probably be streamlined. 
 @touchphat.on_release("A")
 def key_a():
     global is_key

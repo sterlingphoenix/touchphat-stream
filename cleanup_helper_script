@@ -1,13 +1,20 @@
 #!/bin/bash
+# 
+# This script kills all stream/local video processes in the correct order. 
+
 ./syslogger Killing old processes...
+
+# Tell stream not to restart.
 touch /tmp/youdienow
 
+# Find PID for streamer_helper_script and kill it. 
 PID=`ps auxw|grep r_helper_|grep -v grep|awk '{print $2}'|head -1`
 if [ "${PID}" != "" ]
 then
 	kill -9 ${PID}
 fi
 
+# Nuke everything else from orbit.
 killall -9 streamlink
 killall -9 omxplayer.bin
 killall -9 omxplayer
