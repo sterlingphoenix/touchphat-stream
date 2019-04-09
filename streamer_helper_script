@@ -10,7 +10,7 @@ else
 
 	while :
 	do
-    		/usr/local/bin/streamlink -p omxplayer --fifo $1 best
+    		/usr/local/bin/streamlink -p "omxplayer -b" --fifo $1 best
     		sleep 10
     		if [ -f "/tmp/youdienow" ];
     		then
