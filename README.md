@@ -61,6 +61,14 @@ Since the script runs at reboot, this is the only consistent way to provide outp
 
 ## Install This Stuff.
 
+Installation is assumed to be in ``/home/pi/touchphat-stream``. 
+
+You'll need to install ```git``` on your PI (```apt-get install git```). 
+
+Then, from ``/home/pi``, run
+
+```git clone 
+
 Download the zip or ``git clone`` the thing (note that you'll have to ``apt-get install git`` for that one). 
 
 Intallation is assumed to be in ``/home/pi/touchphat-stream``. Because that's friggin hardcoded. 
