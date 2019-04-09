@@ -71,4 +71,7 @@ Since the script runs at reboot, this is the only consistent way to provide outp
 
 ## Install This Stuff.
 
-``git clone`` it. 
+Download the zip or ``git clone`` the thing (note that you'll have to ``apt-get install git`` for that one). 
+
+Intallation is assumed to be in ``/home/pi/touchphat-stream``. Because that's friggin hardcoded. 
+
