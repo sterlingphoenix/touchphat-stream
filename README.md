@@ -10,24 +10,14 @@ This is _not_ what I'd call "good" software. It was written by someone who had n
 
 * This file is a barely legible monstrosity. 
 * More comments in the code. Like, _any_ comments. 
+* The configuration files should prooobably be unified. And be JSON or YAML or something because that's what all the cool kids are doing. Or XML because that'd annoy people. 
 * The code can be streamlined a lot. Especially towards the end. The end of me writing it, not the end of the file. You know, when I was getting lazy. Lazier. 
 
 ## Hardware Requirements
 
 ### Raspberry PI. 
 
-I recommend a PI 3 or better. 
-
-#### But I want to use a PI Zero!
-
-Ok... here's what you need:
-
-* Knowledge of how to set stuff up on a PI Zero. The thing has no standard USB ports. Or a standard HDMI port, for that matter. 
-* GPIO headers, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you'll have to solder later anyway.
-* Network. This means either a PI Zero W, or getting some kind of USB dongle. 
-* Patience, because this is going to be sssloooowwww. And it ain't exactly zippy on a PI 3 B+.
-
-I know all this because I originally planned on using a PI Zero for this. It works, but...
+I recommend a PI 3 or better. See below (way below) if you want to use a PI Zero. 
 
 ### [Pimoroni Touch pHAT](https://shop.pimoroni.com/products/touch-phat). 
 
@@ -75,3 +65,21 @@ Download the zip or ``git clone`` the thing (note that you'll have to ``apt-get 
 
 Intallation is assumed to be in ``/home/pi/touchphat-stream``. Because that's friggin hardcoded. 
 
+
+## But I want to use a PI Zero!
+
+Yeah, that was my original plan, too. I had a PI Zero that was happily looping a local 1080p video so I figured, what the hell. And a PI Zero will happily stream a 1080p YouTube stream. 
+
+*However*. 
+
+* Setting up a PI Zero is slightly more complex than a "regular" PI. 
+** The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card, or use a USB Ethernet dongle... etc.
+* It has no standard HDMI port either, for that matter. So you need a Mini HDMI to HDMI adapter. Or is it micro HDMI?... one of those. 
+* You need GPIO headers, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you have to solder the headers on the touchphat, anyway. 
+* You need to be online, which means you need the PI Zero W, or (again) a USB Ethernet dongle.  
+* If you want audio and you're not plugged into something that supports audio over HDMI, the thing has no 3.5mm speaker jack. 
+* It. is. going. to. be. slooooooow. Slow to start, slow to switch streams, just sllloooowww. And it ain't exactly zippy on a PI 3 B+. Now once a video or stream _start_, you're good. But time between those... 
+
+Again, it _will_ work. But it's more work and it is slower. 
+
+However, it _does_ look kinda cooler to have a _tiny_ thing doing all this. 
