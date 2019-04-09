@@ -6,6 +6,12 @@ This script (or collection of scripts) turns a Raspberry PI into a live stream p
 
 This is _not_ what I'd call "good" software. It was written by someone who had never really used Python before, would rather never use it again and generally wants Python to get off his lawn. Quite frankly a lot of this works by brute force. 
 
+## TODO / Wishlist
+
+* This file is a barely legible monstrosity. 
+* More comments in the code. Like, _any_ comments. 
+* The code can be streamlined a lot. Especially towards the end. The end of me writing it, not the end of the file. You know, when I was getting lazy. Lazier. 
+
 ## Hardware Requirements
 
 ### Raspberry PI. 
@@ -33,28 +39,27 @@ Duh, right? I'm only mentioning this because your diskspace obviously limits how
 
 ## Software Requirements
 
+### The latest [Raspbarian Lite](https://www.raspberrypi.org/downloads/raspbian/).
+
+* Install normally, and let it do the initial setup.
+* Run ``sudo raspi-config`` and *change the default passord*, set up networking, enable ``ssh`` (if you want to), localisation (if you need it), etc. Might as well do an ``Update``, too. 
+* While in``raspi-config``, select ``Advanced Options`` -> ``Memory Split`` and set the GPU RAM to 256 MB. 
+
 ### The aforementioned Pimoroni software library
 
-Instructions on installation are available on their website, and are pretty straightforward. 
+Instructions on installation are available on [their website](https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-touch-phat), and are pretty straightforward despite being the much-maligned curl|bash method.
 
 ### [streamlink](https://github.com/streamlink/streamlink)
 
-Installation instructions are, once again, available directly from the project page, and are also straightforward.
+This program can stream livestreams from a variety of services. 
+
+Installation instructions are, once again, available directly from the project page, and are also straightforward. 
 
 ### omxplayer
 
-Can be installed via ```apt-get install omxplayer```
+This is the actual video player. It is used by streamlink, and to directly play locally stored videos.
 
-### This stuff. 
-
-git clone this thing. 
-
-## Raspberry PI Configuration
-
-* Install the latest version of [Raspbarian Lite](https://www.raspberrypi.org/downloads/raspbian/). 
-* Let it do the initial setup.
-* Run ``sudo raspi-config`` and *change the default passord*, set up networking, enable ``ssh`` (if you want to) etc. Might as well do an ``Update``, too. 
-* While in``raspi-config``, select ``Advanced Options`` -> ``Memory Split`` and set the GPU RAM to 256 MB. 
+It can be installed via ```apt-get install omxplayer```
 
 ## Configure ``syslog``
 
@@ -64,3 +69,6 @@ If you want to see any kind of output on the console, add the following line to 
 
 Since the script runs at reboot, this is the only consistent way to provide output. 
 
+## Install This Stuff.
+
+``git clone`` it. 
