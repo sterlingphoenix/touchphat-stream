@@ -6,6 +6,8 @@ Also note that "stream" refers to either a stream or a local video, because I'm 
 
 On startup, the script will load a provided stream file, randomise the list and start playing at a random spot. 
 
+After it sleeps for 5 seconds. Because I think it messes up the network test otherwise. 
+
 ## Disclaimer
 
 This is _not_ what I'd call "good" software. It was written by someone who had never really used Python before, would rather never use it again and generally wants Python to get off his lawn. Quite frankly a lot of this works by brute force. 
@@ -95,9 +97,37 @@ A stream URL is the full URL, including the https:// bit. A local video is the f
 
 ## Test It! 
 
-You can start the thing locally or via ``ssh``.
+*Note*: testing the Pimoroni Touch pHAT is detailed on their installation page, and you should absolutely make sure that thing works. 
 
+While you can start this script locally, it's probably a better idea to do so via `ssh` since you'll still see some output the console will otherwise obscure. Basically, run:
 
+    /home/pi/touchphat-stream/touchphat-stream
+    
+You should see something like this on the console:
+
+    Apr 10 12:02:42 localhost /touchphat-stream: Hi there!
+    Apr 10 12:02:42 localhost /touchphat-stream: Waiting for network to be available.
+    Apr 10 12:02:45 localhost /touchphat-stream: Network is up!
+    Apr 10 12:02:45 localhost /touchphat-stream: 16 streams detected.
+    Apr 10 12:02:45 localhost /touchphat-stream: Playing stream #4: Kittens!!!
+    
+Your ssh session should have some output from the helper scripts and video player applications, so any errors will show up there. Streams that no longer exist, or any typos, can break this. 
+
+If you want to abort the script to fix any errors, you can kill it with a `^c`, but make sure to run `/home/pi/touchphat-stream/cleanup_helper_script` to make sure there are no lingering players. 
+
+You'll want to cycle through all your streams and try all the hotkeys before setting the thing to run on boot.
+
+## Setting The Thing To Run On Boot
+
+Run `sudo crontab -e` (you may be prompted to choose an editor, choose the one you're comfortable with and it better be `vim`).
+
+Go to the end of the file and add:
+
+`@reboot /home/pi/touchphat-stream/touchphat-stream`
+
+Save the file, and reboot. *Done!*
+    
+    
 ## But I want to use a PI Zero!
 
 Yeah, that was my original plan, too. I had a PI Zero that was happily looping a local 1080p video so I figured, what the hell. And a PI Zero will happily stream a 1080p YouTube stream. 
@@ -115,9 +145,3 @@ Yeah, that was my original plan, too. I had a PI Zero that was happily looping a
 Again, it _will_ work. But it's more work and it is slower. 
 
 However, it _does_ look kinda cooler to have a _tiny_ thing doing all this. 
-
-`test 1` One!
-
-``test 2`` Two!
-
-```test 3``` Three!
