@@ -126,7 +126,8 @@ Go to the end of the file and add:
 `@reboot /home/pi/touchphat-stream/touchphat-stream`
 
 Save the file, and reboot. *Done!*
-    
+
+---
     
 ## But I want to use a PI Zero!
 
