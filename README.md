@@ -17,7 +17,7 @@ This is _not_ what I'd call "good" software. It was written by someone who had n
 
 ### Raspberry PI. 
 
-I recommend a PI 3 or better. See below (way below) if you want to use a PI Zero. 
+I recommend a PI 3 or better. See below ([way below](#but-i-want-to-use-a-pi-zero)) if you want to use a PI Zero. 
 
 ### [Pimoroni Touch pHAT](https://shop.pimoroni.com/products/touch-phat). 
 
@@ -73,7 +73,7 @@ Yeah, that was my original plan, too. I had a PI Zero that was happily looping a
 *However*. 
 
 * Setting up a PI Zero is slightly more complex than a "regular" PI. 
-- The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card, or use a USB Ethernet dongle... etc.
+  * The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card, or use a USB Ethernet dongle... etc.
 * It has no standard HDMI port either, for that matter. So you need a Mini HDMI to HDMI adapter. Or is it micro HDMI?... one of those. 
 * You need GPIO headers, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you have to solder the headers on the touchphat, anyway. 
 * You need to be online, which means you need the PI Zero W, or (again) a USB Ethernet dongle.  
