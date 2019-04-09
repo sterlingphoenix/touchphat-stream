@@ -35,13 +35,13 @@ Duh, right? I'm only mentioning this because your diskspace obviously limits how
 
 ## Software Requirements
 
-### The latest [Raspbarian Lite](https://www.raspberrypi.org/downloads/raspbian/).
+### The Latest [Raspbarian Lite](https://www.raspberrypi.org/downloads/raspbian/).
 
 * Install normally, and let it do the initial setup.
 * Run ``sudo raspi-config`` and *change the default passord*, set up networking, enable ``ssh`` (if you want to), localisation (if you need it), etc. Might as well do an ``Update``, too. 
 * While in``raspi-config``, select ``Advanced Options`` -> ``Memory Split`` and set the GPU RAM to 256 MB. 
 
-### The aforementioned Pimoroni software library
+### The Aforementioned Pimoroni Software Library
 
 Instructions on installation are available on [their website](https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-touch-phat), and are pretty straightforward despite being the much-maligned curl|bash method.
 
