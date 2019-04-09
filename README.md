@@ -1,6 +1,6 @@
 # touchphat-stream
 
-This script turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file, and start playing a random one. It will then switch between streams depending on input from a Pimoroni Touch pHAT. 
+This script (or collection of scripts) turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file, and start playing a random one. It will then switch between streams depending on input from a Pimoroni Touch pHAT. 
 
 ## Disclaimer
 
@@ -10,7 +10,7 @@ This is _not_ what I'd call "good" software. It was written by someone who had n
 
 ### Raspberry PI. 
 
-I recomment a PI 3 or better. 
+I recommend a PI 3 or better. 
 
 #### But I want to use a PI Zero!
 
