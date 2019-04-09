@@ -14,8 +14,7 @@ This is _not_ what I'd call "good" software. It was written by someone who had n
 
 ## TODO / Wishlist
 
-* This file is a barely legible monstrosity. 
-* More comments in the code. Like, _any_ comments. 
+* `README.md` is a barely legible monstrosity. 
 * The configuration files should prooobably be unified. And be JSON or YAML or something because that's what all the cool kids are doing. Or XML because that'd annoy people. 
 * The code can be streamlined a lot. Especially towards the end. The end of me writing it, not the end of the file. You know, when I was getting lazy. Lazier. 
 
