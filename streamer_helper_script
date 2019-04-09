@@ -1,13 +1,6 @@
 #!/bin/bash
-#streamlink -p omxplayer --fifo "https://www.youtube.com/watch?v=JEPRVy1jat4" best
-
-if [[ "$1" =~ (mp4$|mkv$|avi$) ]]
+if [[ "$1" =~ ^http ]]
 then
-	sleep 5
-	/usr/bin/omxplayer --loop -b $1
-	exit
-else
-
 	while :
 	do
     		/usr/local/bin/streamlink -p "omxplayer -b" --fifo $1 best
@@ -17,4 +10,8 @@ else
 	    		exit
     		fi
 	done
+else
+        sleep 5
+        /usr/bin/omxplayer --loop -b $1
+        exit
 fi
