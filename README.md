@@ -59,8 +59,9 @@ It can be installed via `apt-get install omxplayer`
 ## Configure `syslog`
 
 If you want to see any kind of output on the console, add the following line to `/etc/rsyslog.conf`:
-
-`*.notice               /dev/console`
+```
+*.notice                   /dev/console
+```
 
 Since the script runs at reboot, this is the only consistent way to provide output. 
 
