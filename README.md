@@ -26,7 +26,7 @@ I recommend a PI 3 or better. See below ([way below](#but-i-want-to-use-a-pi-zer
 
 ### [Pimoroni Touch pHAT](https://shop.pimoroni.com/products/touch-phat). 
 
-You _will_ have to solder the GPIO header onto this guy. You'll also need to install the required software; Pimoroni has a very good [Getting Started](https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-touch-phat) page which explains how to do both. 
+These don't come pre-assembled, so you will have to solder the GPIO header onto the board. You'll also need to install the required software; Pimoroni has a very good [Getting Started](https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-touch-phat) page which explains how to do both. 
 
 ### MicroSD Card
 
@@ -136,9 +136,9 @@ Yeah, that was my original plan, too. I had a PI Zero that was happily looping a
 *However*. 
 
 * Setting up a PI Zero is slightly more complex than a "regular" PI. 
-  * The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card, or use a USB Ethernet dongle... etc.
-* It has no standard HDMI port either, for that matter. So you need a Mini HDMI to HDMI adapter. Or is it micro HDMI?... one of those. 
-* You need GPIO headers, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you have to solder the headers on the touchphat, anyway. 
+  * The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card before booting it up, or use a USB Ethernet dongle... etc. There are guides todoing all this, but it's a pain in the butt. If you _are_ going to try, a USB2Go dongle is probably the simplest way. 
+* It has no standard HDMI port either, for that matter. So you need a Mini HDMI to HDMI adapter. that's "mini", not "micro". Because why not have different standards with names that are basically synonyms.  
+* You need GPIO headers to connect the Touch pHAT, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you have to solder the headers on the Touch pHAT, anyway. 
 * You need to be online, which means you need the PI Zero W, or (again) a USB Ethernet dongle.  
 * If you want audio and you're not plugged into something that supports audio over HDMI, the thing has no 3.5mm speaker jack. 
 * It. is. going. to. be. slooooooow. Slow to start, slow to switch streams, just sllloooowww. And it ain't exactly zippy on a PI 3 B+. Now once a video or stream _start_, you're good. But time between those... 
