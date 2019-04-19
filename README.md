@@ -20,7 +20,7 @@ This is _not_ what I'd call "good" software. It was written by someone who had n
 
 ## Hardware Requirements
 
-### Raspberry PI. 
+### Raspberry PI.
 
 I recommend a PI 3 or better. See below ([way below](#but-i-want-to-use-a-pi-zero)) if you want to use a PI Zero. 
 
