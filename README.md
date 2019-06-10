@@ -79,7 +79,7 @@ Then, from `/home/pi`, run
 
 * `touchphat-stream` - the main script. 
 * `streamer_helper_script` - helper shell script that starts the stream/video. Since live streams tend to, well, crash, it makes sure to keep things going.
-* `cleanup_helper_script` - helper shell script that kills _everything_ with some degree of vehemence. Makes sure new stream doesn't merge with new stream. Ever see pandas running around a beach in Hawaii? That was a fun bug. 
+* `cleanup_helper_script` - helper shell script that kills _everything_ with some degree of vehemence. Makes sure new stream doesn't merge with old stream. Ever see pandas running around a beach in Hawaii? That was a fun bug. 
 * `syslogger` - script that takes whatever you throw at it and barfs it out to syslog. 
 
 ### Configuration Files
@@ -136,7 +136,7 @@ Yeah, that was my original plan, too. I had a PI Zero that was happily looping a
 *However*. 
 
 * Setting up a PI Zero is slightly more complex than a "regular" PI. 
-  * The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card before booting it up, or use a USB Ethernet dongle... etc. There are guides todoing all this, but it's a pain in the butt. If you _are_ going to try, a USB2Go dongle is probably the simplest way. 
+  * The thing has no standard USB ports, so if you want to use a keyboard you need a USB2Go dongle, or to setup Ethernet-over-USB by editing stuff on the MicroSD card before booting it up, or setting up WiFi on the MicroSD card before booting it up, or use a USB Ethernet dongle... etc. There are guides to doing all this, but it's a pain in the butt. If you _are_ going to try, a USB2Go dongle is probably the simplest way. 
 * It has no standard HDMI port either, for that matter. So you need a Mini HDMI to HDMI adapter. that's "mini", not "micro". Because why not have different standards with names that are basically synonyms.  
 * You need GPIO headers to connect the Touch pHAT, which the PI Zero doesn't usually come with. So either solder them on, or buy one with headers pre-soldered. You may as well solder them because you have to solder the headers on the Touch pHAT, anyway. 
 * You need to be online, which means you need the PI Zero W, or (again) a USB Ethernet dongle.  
