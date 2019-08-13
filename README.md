@@ -12,6 +12,10 @@ After it sleeps for 5 seconds. Because I think it messes up the network test oth
 
 This is _not_ what I'd call "good" software. It was written by someone who had never really used Python before, would rather never use it again and generally wants Python to get off his lawn. Quite frankly a lot of this works by brute force. 
 
+## Disclaimer 2
+
+I wrote/deveoped this before the PI 4 came out. I have no idea if or how well this works on a PI 4 or Raspbian Buster. I will update this as soon as I get my grubby paws on one of those things. 
+
 ## TODO / Wishlist
 
 * `README.md` is a barely legible monstrosity. 
