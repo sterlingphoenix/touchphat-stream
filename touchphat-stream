@@ -4,7 +4,7 @@
 # It switches between streams using a Pimoroni Touch pHAT. 
 
 # Honestly this miiight need to be cleaned up... not sure I'm using all 
-# of these anu more.
+# of these any more.
 import os
 import signal
 import subprocess
@@ -58,7 +58,7 @@ syslog.syslog(syslog.LOG_NOTICE, "Hi there!")
 syslog.syslog(syslog.LOG_NOTICE, "Waiting for network to be available.")
 
 # Check for network connectivity. We do this by trying 
-# to resolve youtube.com. this will loop until it succeeds. 
+# to resolve youtube.com. This will loop until it succeeds. 
 while True:
     nointernet=10
     try:
@@ -89,14 +89,15 @@ with open(key_c_file) as c:
 with open(key_d_file) as d:
     stream_d=d.readline()
 
-# Hey, let's shuffle the order of the streams. 
-shuffle(streams)
+# Hey, let's shuffle the order of the streams.
+# Hey, let's NOT.
+#shuffle(streams)
 numstreams=len(streams)
 
 msg=str(numstreams)+" streams detected."
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
-# Also let's start at a random place on the list. 
+# Let's start at a random place on the list. 
 s = random.randint(1,numstreams)
 s=s-1
 startstream(streams[s])
