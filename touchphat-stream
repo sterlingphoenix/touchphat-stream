@@ -97,10 +97,14 @@ numstreams=len(streams)
 msg=str(numstreams)+" streams detected."
 syslog.syslog(syslog.LOG_NOTICE, msg)
 
-# Let's start at a random place on the list. 
+# Randomise starting position on the list. 
 s = random.randint(1,numstreams)
 s=s-1
-startstream(streams[s])
+
+# Start playng with whatever key_a is.
+is_key="hotkey A"
+startstream(stream_a)
+
 
 # The Touch pHAT's "Enter" button is our "forward".
 @touchphat.on_release("Enter")
