@@ -1,6 +1,6 @@
 # touchphat-stream
 
-This script (or collection of scripts) turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file, and start playing a random one. It will then switch between streams depending on input from a Pimoroni Touch pHAT. The Touch pHAT has six keys -- "Back" and "Enter" are used as Forward/Backward in the stream list. Keys A through D are used as hotkeys for specific streams. 
+This script (or collection of scripts) turns a Raspberry PI into a live stream player. It can also play locally stored video files in a loop. It will read a list of streams/videos from a provided file. It will then automatically start playing the one designated as the default. It can switch between streams based on input from a Pimoroni Touch pHAT. The Touch pHAT has six keys -- "Back" and "Enter" are used as Forward/Backward in the stream list. Keys A through D are used as hotkeys for specific streams. 
 
 Also note that "stream" refers to either a stream or a local video, because I'm lazy. 
 
@@ -12,10 +12,6 @@ After it sleeps for 5 seconds. Because I think it messes up the network test oth
 
 This is _not_ what I'd call "good" software. It was written by someone who had never really used Python before, would rather never use it again and generally wants Python to get off his lawn. Quite frankly a lot of this works by brute force. 
 
-## Disclaimer 2
-
-I wrote/deveoped this before the PI 4 came out. I have no idea if or how well this works on a PI 4 or Raspbian Buster. I will update this as soon as I get my grubby paws on one of those things. 
-
 ## TODO / Wishlist
 
 * `README.md` is a barely legible monstrosity. 
@@ -26,7 +22,7 @@ I wrote/deveoped this before the PI 4 came out. I have no idea if or how well th
 
 ### Raspberry PI.
 
-I recommend a PI 3 or better. See below ([way below](#but-i-want-to-use-a-pi-zero)) if you want to use a PI Zero. 
+I recommend a PI 3 or better. It does work on the PI 4B, but I'd not waste a 2GB or 4GB model on it. See below ([way below](#but-i-want-to-use-a-pi-zero)) if you want to use a PI Zero. 
 
 ### [Pimoroni Touch pHAT](https://shop.pimoroni.com/products/touch-phat). 
 
@@ -89,7 +85,7 @@ Then, from `/home/pi`, run
 ### Configuration Files
 
 * `streams.dat` - main file containing streams to cycle through.  
-* `key_a.dat` through `key_d.dat` - these contain a stream for each corresponding hotkey. Separate files (for now) so they can either be included or not in the main list. 
+* `key_a.dat` through `key_d.dat` - these contain a stream for each corresponding hotkey. Separate files (for now) so they can either be included or not in the main list. The stream listen in key_a.dat is also designated the default stream, and will be the one played automatically when the program starts.
 
 Configuration files are basically a comma-separated list with the format
 
